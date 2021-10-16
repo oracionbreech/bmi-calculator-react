@@ -1,7 +1,7 @@
 import { IGenericFormField } from "./generics";
 
-
 export interface IMetricFormFields {
-    height: IGenericFormField,
+    heightFeet: IGenericFormField,
+    heightInches: IGenericFormField,
     weight: IGenericFormField,
 }
