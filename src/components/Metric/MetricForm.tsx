@@ -1,12 +1,21 @@
 import { useFormik } from "formik";
-import React from "react";
+import { get, isEmpty } from "lodash";
+import React, { useState } from "react";
+import { Animated } from "react-animated-css";
 import calculatorFormViews from "../../constants/calculatorFormViews";
-import { getImperialPayload } from "../../helpers/imperial/service";
 import { metricFormFields } from "../../helpers/metric/formFields";
 import { metricFormInitialValues } from "../../helpers/metric/initialValues";
+import { getMetricPayload } from "../../helpers/metric/service";
 import { metricFormValidationSchema } from "../../helpers/metric/validationSchema";
-import { getImperialBMI } from "../../services/imperial.service";
-import { ErrorGroup, ErrorText } from "../Imperial/styled";
+import { getMetricBMI } from "../../services/metric.service";
+import {
+  BMIResultText,
+  ErrorGroup,
+  ErrorMessage,
+  ErrorText,
+  ResultContainer,
+} from "../Imperial/styled";
+
 import {
   AnimatedStyled,
   Form,
@@ -27,23 +36,41 @@ export const MetricForm: React.FC<{
   formView: string;
   setFormView: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ formView, setFormView = () => {} }) => {
+  const [error, setError] = useState(null) as any;
+  const [result, setResult] = useState(null) as any;
+
   const swapUnits = (e: any) => {
     e.preventDefault();
     setFormView(calculatorFormViews.imperial);
   };
 
   const onSubmit = async (values: any) => {
+    setError(null);
+    setResult(null);
     try {
-      const { data } = await getImperialBMI(getImperialPayload(values));
-    } catch (error) {}
+      const { data, status } = await getMetricBMI(getMetricPayload(values));
+
+      if (status === 200) {
+        // Set data
+        setResult({
+          bmi: get(data, "bmi", ""),
+          classification: get(data, "classification", ""),
+        });
+      }
+    } catch (error: any) {
+      setError({
+        message: error.message,
+      });
+    }
   };
 
-  const { handleSubmit, handleBlur, handleChange, errors } = useFormik({
-    initialValues: metricFormInitialValues,
-    onSubmit: onSubmit,
-    validationSchema: metricFormValidationSchema,
-    validateOnBlur: true,
-  });
+  const { handleSubmit, handleBlur, handleChange, errors, isSubmitting } =
+    useFormik({
+      initialValues: metricFormInitialValues,
+      onSubmit: onSubmit,
+      validationSchema: metricFormValidationSchema,
+      validateOnBlur: true,
+    });
 
   return (
     <AnimatedStyled
@@ -54,6 +81,22 @@ export const MetricForm: React.FC<{
       isVisible={formView === calculatorFormViews.metric}
     >
       <Form>
+        {!isEmpty(error) && (
+          <AnimatedStyled
+            animationIn="bounceIn"
+            animationOut="bounceOut"
+            animationInDuration={1000}
+            animationOutDuration={1000}
+            isVisible={!isEmpty(error)}
+          >
+            <ErrorMessage>
+              {get(error, "message", "An error occurred!")}{" "}
+              <span className="close" onClick={() => setError(null)}>
+                Close
+              </span>
+            </ErrorMessage>
+          </AnimatedStyled>
+        )}
         <Header>
           <HeaderText>Metric</HeaderText>
           <SwapUnitsButton onClick={swapUnits}>
@@ -70,11 +113,17 @@ export const MetricForm: React.FC<{
             onChange={handleChange}
           />
         </FormGroup>
-        <ErrorGroup>
-          <ErrorText>
+        <Animated
+          animationIn="bounceIn"
+          animationOut="bounceOut"
+          animationInDuration={1000}
+          animationOutDuration={1000}
+          isVisible={!isEmpty(errors.height)}
+        >
+          <ErrorGroup>
             <ErrorText>{errors.height}</ErrorText>
-          </ErrorText>
-        </ErrorGroup>
+          </ErrorGroup>
+        </Animated>
         <Spacer />
         <FormGroup>
           <FormLabel>Weight:</FormLabel>
@@ -86,15 +135,22 @@ export const MetricForm: React.FC<{
             onChange={handleChange}
           />
         </FormGroup>
-        <ErrorGroup>
-          <ErrorText>
+        <Animated
+          animationIn="bounceIn"
+          animationOut="bounceOut"
+          animationInDuration={1000}
+          animationOutDuration={1000}
+          isVisible={!isEmpty(errors.weight)}
+        >
+          <ErrorGroup>
             <ErrorText>{errors.weight}</ErrorText>
-          </ErrorText>
-        </ErrorGroup>
+          </ErrorGroup>
+        </Animated>
         <Spacer />
         <FormGroup>
           <SubmitBtn
             type="submit"
+            disabled={isSubmitting}
             onClick={(e) => {
               e.preventDefault();
               handleSubmit();
@@ -103,6 +159,18 @@ export const MetricForm: React.FC<{
             Calculate
           </SubmitBtn>
         </FormGroup>
+        {!isEmpty(result) && (
+          <ResultContainer>
+            <BMIResultText>
+              <span className="label">BMI:</span>
+              {Number(get(result, "bmi", "")).toFixed(2)} kg/m²
+            </BMIResultText>
+            <BMIResultText>
+              <span className="label">Weight Classification: </span>
+              {get(result, "classification", "")}
+            </BMIResultText>
+          </ResultContainer>
+        )}
       </Form>
     </AnimatedStyled>
   );
