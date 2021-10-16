@@ -45,23 +45,6 @@ export const ImperialForm: React.FC<{
     }
   );
 
-  const formErrors = {
-    [heightFeet.name]: {
-      touched: touched.heightFeet,
-      message: errors.heightFeet,
-    },
-    [heightInches.name]: {
-      touched: touched.heightInches,
-      message: errors.heightInches,
-    },
-    [weight.name]: {
-      touched: touched.weight,
-      message: errors.weight,
-    },
-  };
-
-  console.log(errors);
-
   return (
     <AnimatedStyled
       animationIn="bounceIn"
