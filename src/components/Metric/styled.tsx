@@ -28,6 +28,11 @@ export const Form = styled.form`
 
   width: 50%;
   padding: 3rem;
+
+  @media screen and (max-width: 767px) {
+    padding: 1rem;
+    width: 80%;
+  }
 `;
 
 export const FormGroup = styled.div`
