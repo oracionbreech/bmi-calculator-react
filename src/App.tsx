@@ -1,7 +1,13 @@
 import React from "react";
+import "./app.css";
+import BMICalculator from "./components";
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <>
+      <BMICalculator />
+    </>
+  );
 }
 
 export default App;
