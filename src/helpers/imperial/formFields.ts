@@ -5,7 +5,7 @@ export const imperialFormFields: IImperialFormFields = {
         name: 'heightFeet',
         placeholder: 'Feet',
         errMsg: {
-            invalid: "Height Feet in invalid.",
+            invalid: "Height Feet is invalid.",
             required: 'Height Feet is required.'
         }
     },
@@ -13,7 +13,7 @@ export const imperialFormFields: IImperialFormFields = {
         name: 'heightInches',
         placeholder: 'Inches',
         errMsg: {
-            invalid: "Height Inches in invalid.",
+            invalid: "Height Inches is invalid.",
             required: 'Height Inches is required.'
         }
     },
@@ -21,7 +21,7 @@ export const imperialFormFields: IImperialFormFields = {
         name: 'weight',
         placeholder: 'Pounds',
         errMsg: {
-            invalid: "Weight in Pounds in invalid.",
+            invalid: "Weight in Pounds is invalid.",
             required: 'Weight in Pounds is required.'
         }
     }

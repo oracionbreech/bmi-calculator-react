@@ -5,3 +5,9 @@ export interface IImperialFormFields {
     heightInches: IGenericFormField,
     weight: IGenericFormField,
 }
+
+export interface IImperial {
+    heightFeet: string,
+    heightInches: string,
+    weight: string,
+}

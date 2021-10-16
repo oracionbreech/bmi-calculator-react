@@ -5,7 +5,7 @@ export const metricFormFields: IMetricFormFields = {
         name: 'height',
         placeholder: 'Centimeters',
         errMsg: {
-            invalid: "Height in centimeters in invalid.",
+            invalid: "Height in centimeters is invalid.",
             required: 'Height in centimeters is required.'
         }
     },
@@ -13,7 +13,7 @@ export const metricFormFields: IMetricFormFields = {
         name: 'weight',
         placeholder: 'Kilograms',
         errMsg: {
-            invalid: "Weight in Kilograms in invalid.",
+            invalid: "Weight in Kilograms is invalid.",
             required: 'Weight in Kilograms is required.'
         }
     }

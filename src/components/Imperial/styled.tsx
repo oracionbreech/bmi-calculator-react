@@ -120,3 +120,15 @@ export const AnimatedStyled = styled(Animated)`
   display: flex;
   justify-content: center;
 `;
+
+export const ErrorGroup = styled.div`
+  margin-top: 1rem;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #fff;
+`;
+
+export const ErrorText = styled.div`
+  color: #ff7676;
+`;
