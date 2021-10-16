@@ -1,5 +1,6 @@
 import React from "react";
 import calculatorFormViews from "../../constants/calculatorFormViews";
+import { metricFormFields } from "../../helpers/metric/formFields";
 import {
   AnimatedStyled,
   Form,
@@ -12,6 +13,9 @@ import {
   SwapUnitsButton,
   TextInput,
 } from "./styled";
+
+/// Fields
+const { height, weight } = metricFormFields;
 
 export const MetricForm: React.FC<{
   formView: string;
@@ -39,12 +43,12 @@ export const MetricForm: React.FC<{
         </Header>
         <FormGroup>
           <FormLabel>Height:</FormLabel>
-          <TextInput type="text" placeholder="Centimeters" />
+          <TextInput type="text" placeholder={height.placeholder} />
         </FormGroup>
         <Spacer />
         <FormGroup>
           <FormLabel>Weight:</FormLabel>
-          <TextInput type="text" placeholder="Pounds" />
+          <TextInput type="text" placeholder={weight.placeholder} />
         </FormGroup>
         <Spacer />
         <FormGroup>
