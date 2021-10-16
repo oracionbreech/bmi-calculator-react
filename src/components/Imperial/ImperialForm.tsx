@@ -36,14 +36,12 @@ export const ImperialForm: React.FC<{
 
   const onSubmit = (values: any) => {};
 
-  const { handleSubmit, handleBlur, handleChange, touched, errors } = useFormik(
-    {
-      initialValues: imperialFormInitialValues,
-      onSubmit: onSubmit,
-      validationSchema: imperialFormValidationSchema,
-      validateOnBlur: true,
-    }
-  );
+  const { handleSubmit, handleBlur, handleChange, errors } = useFormik({
+    initialValues: imperialFormInitialValues,
+    onSubmit: onSubmit,
+    validationSchema: imperialFormValidationSchema,
+    validateOnBlur: true,
+  });
 
   return (
     <AnimatedStyled
