@@ -1,5 +1,7 @@
 import React from "react";
 import calculatorFormViews from "../../constants/calculatorFormViews";
+import { imperialFormFields } from "../../helpers/imperial/formFields";
+
 import {
   AnimatedStyled,
   Form,
@@ -13,6 +15,10 @@ import {
   SwapUnitsButton,
   TextInput,
 } from "./styled";
+
+/// Fields
+
+const { heightFeet, heightInches, weight } = imperialFormFields;
 
 export const ImperialForm: React.FC<{
   formView: string;
@@ -41,14 +47,14 @@ export const ImperialForm: React.FC<{
         <FormGroup>
           <FormLabel>Height:</FormLabel>
           <HeightTextContainer>
-            <TextInput type="text" placeholder="Feet" />
-            <TextInput type="text" placeholder="Inches" />
+            <TextInput type="text" placeholder={heightFeet.placeholder} />
+            <TextInput type="text" placeholder={heightInches.placeholder} />
           </HeightTextContainer>
         </FormGroup>
         <Spacer />
         <FormGroup>
           <FormLabel>Weight:</FormLabel>
-          <TextInput type="text" placeholder="Pounds" />
+          <TextInput type="text" placeholder={weight.placeholder} />
         </FormGroup>
         <Spacer />
         <FormGroup>
