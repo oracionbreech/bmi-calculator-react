@@ -7,20 +7,19 @@ import {
   FormLabel,
   Header,
   HeaderText,
-  HeightTextContainer,
   Spacer,
   SubmitBtn,
   SwapUnitsButton,
   TextInput,
 } from "./styled";
 
-export const ImperialForm: React.FC<{
+export const MetricForm: React.FC<{
   formView: string;
   setFormView: React.Dispatch<React.SetStateAction<string>>;
 }> = ({ formView, setFormView = () => {} }) => {
   const swapUnits = (e: any) => {
     e.preventDefault();
-    setFormView(calculatorFormViews.metric);
+    setFormView(calculatorFormViews.imperial);
   };
 
   return (
@@ -29,21 +28,18 @@ export const ImperialForm: React.FC<{
       animationOut="fadeOut"
       animationInDuration={600}
       animationOutDuration={400}
-      isVisible={formView === calculatorFormViews.imperial}
+      isVisible={formView === calculatorFormViews.metric}
     >
       <Form>
         <Header>
-          <HeaderText>Imperial</HeaderText>
+          <HeaderText>Metric</HeaderText>
           <SwapUnitsButton onClick={swapUnits}>
-            Change to Metric
+            Change to Imperial
           </SwapUnitsButton>
         </Header>
         <FormGroup>
           <FormLabel>Height:</FormLabel>
-          <HeightTextContainer>
-            <TextInput type="text" placeholder="Feet" />
-            <TextInput type="text" placeholder="Inches" />
-          </HeightTextContainer>
+          <TextInput type="text" placeholder="Centimeters" />
         </FormGroup>
         <Spacer />
         <FormGroup>
