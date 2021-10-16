@@ -25,10 +25,10 @@ export const ImperialForm: React.FC<{
 
   return (
     <AnimatedStyled
-      animationIn="fadeIn"
-      animationOut="fadeOut"
-      animationInDuration={600}
-      animationOutDuration={400}
+      animationIn="bounceIn"
+      animationOut="bounceOut"
+      animationInDuration={1000}
+      animationOutDuration={1000}
       isVisible={formView === calculatorFormViews.imperial}
     >
       <Form>
