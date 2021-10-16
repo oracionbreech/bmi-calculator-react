@@ -1,9 +1,11 @@
 import { useFormik } from "formik";
 import React from "react";
 import calculatorFormViews from "../../constants/calculatorFormViews";
+import { getImperialPayload } from "../../helpers/imperial/service";
 import { metricFormFields } from "../../helpers/metric/formFields";
 import { metricFormInitialValues } from "../../helpers/metric/initialValues";
 import { metricFormValidationSchema } from "../../helpers/metric/validationSchema";
+import { getImperialBMI } from "../../services/imperial.service";
 import { ErrorGroup, ErrorText } from "../Imperial/styled";
 import {
   AnimatedStyled,
@@ -30,17 +32,18 @@ export const MetricForm: React.FC<{
     setFormView(calculatorFormViews.imperial);
   };
 
-  const onSubmit = async (values: any) => {};
+  const onSubmit = async (values: any) => {
+    try {
+      const { data } = await getImperialBMI(getImperialPayload(values));
+    } catch (error) {}
+  };
 
-  const { handleSubmit, handleBlur, handleChange, errors, isSubmitting } =
-    useFormik({
-      initialValues: metricFormInitialValues,
-      onSubmit: onSubmit,
-      validationSchema: metricFormValidationSchema,
-      validateOnBlur: true,
-    });
-
-  console.log(isSubmitting);
+  const { handleSubmit, handleBlur, handleChange, errors } = useFormik({
+    initialValues: metricFormInitialValues,
+    onSubmit: onSubmit,
+    validationSchema: metricFormValidationSchema,
+    validateOnBlur: true,
+  });
 
   return (
     <AnimatedStyled
@@ -91,6 +94,7 @@ export const MetricForm: React.FC<{
         <Spacer />
         <FormGroup>
           <SubmitBtn
+            type="submit"
             onClick={(e) => {
               e.preventDefault();
               handleSubmit();

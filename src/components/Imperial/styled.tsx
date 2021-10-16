@@ -129,6 +129,42 @@ export const ErrorGroup = styled.div`
   color: #fff;
 `;
 
+export const ErrorMessage = styled.div`
+  border-radius: 5px;
+  margin-top: 1rem;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #fff;
+  background-color: #ff7676;
+  width: 100%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+
+  .close {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+`;
+
 export const ErrorText = styled.div`
   color: #ff7676;
+`;
+
+export const ResultContainer = styled.div`
+  margin-top: 2rem;
+`;
+
+export const BMIResultText = styled.div`
+  font-size: 18px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #fff;
+
+  .label {
+    font-size: 15px;
+    color: #e4e4e4;
+    margin-right: 1rem;
+  }
 `;
