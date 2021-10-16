@@ -1,6 +1,10 @@
+import { useFormik } from "formik";
 import React from "react";
 import calculatorFormViews from "../../constants/calculatorFormViews";
 import { metricFormFields } from "../../helpers/metric/formFields";
+import { metricFormInitialValues } from "../../helpers/metric/initialValues";
+import { metricFormValidationSchema } from "../../helpers/metric/validationSchema";
+import { ErrorGroup, ErrorText } from "../Imperial/styled";
 import {
   AnimatedStyled,
   Form,
@@ -26,6 +30,18 @@ export const MetricForm: React.FC<{
     setFormView(calculatorFormViews.imperial);
   };
 
+  const onSubmit = async (values: any) => {};
+
+  const { handleSubmit, handleBlur, handleChange, errors, isSubmitting } =
+    useFormik({
+      initialValues: metricFormInitialValues,
+      onSubmit: onSubmit,
+      validationSchema: metricFormValidationSchema,
+      validateOnBlur: true,
+    });
+
+  console.log(isSubmitting);
+
   return (
     <AnimatedStyled
       animationIn="bounceIn"
@@ -43,16 +59,45 @@ export const MetricForm: React.FC<{
         </Header>
         <FormGroup>
           <FormLabel>Height:</FormLabel>
-          <TextInput type="text" placeholder={height.placeholder} />
+          <TextInput
+            type="text"
+            placeholder={height.placeholder}
+            name={height.name}
+            onBlur={handleBlur}
+            onChange={handleChange}
+          />
         </FormGroup>
+        <ErrorGroup>
+          <ErrorText>
+            <ErrorText>{errors.height}</ErrorText>
+          </ErrorText>
+        </ErrorGroup>
         <Spacer />
         <FormGroup>
           <FormLabel>Weight:</FormLabel>
-          <TextInput type="text" placeholder={weight.placeholder} />
+          <TextInput
+            type="text"
+            placeholder={weight.placeholder}
+            name={weight.name}
+            onBlur={handleBlur}
+            onChange={handleChange}
+          />
         </FormGroup>
+        <ErrorGroup>
+          <ErrorText>
+            <ErrorText>{errors.weight}</ErrorText>
+          </ErrorText>
+        </ErrorGroup>
         <Spacer />
         <FormGroup>
-          <SubmitBtn onClick={(e) => {}}> Calculate</SubmitBtn>
+          <SubmitBtn
+            onClick={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+          >
+            Calculate
+          </SubmitBtn>
         </FormGroup>
       </Form>
     </AnimatedStyled>
